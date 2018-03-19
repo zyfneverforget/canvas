@@ -1,30 +1,55 @@
 var canvas = document.getElementById('canvas');
+var eraser = document.getElementById('eraser');
 var ctx = canvas.getContext('2d');
+//var action = document.getElementById('action');
+//var brush = document.getElementById('brush');
+
 getSize();
 window.onresize = function() {
     getSize();
 }
-var paintting = false;
+var mouseDown = false;
 var lastPoint = {x:undefined,y:undefined}
 
+
 canvas.onmousedown = function (aaa) {
-    paintting = true
     var x = aaa.clientX
     var y = aaa.clientY
     lastPoint = {x: x,y: y}
-    drawCircle(x,y)
+    mouseDown = true
+    if(eraserEnable){
+        ctx.clearRect(x-5,y-5,10,10);
+    } else {
+        drawCircle(x,y)
+    } 
 }
 canvas.onmousemove = function (bbb) {
-    if(paintting) {
-        var x = bbb.clientX
-        var y = bbb.clientY
-        var newPoint = {x: x,y: y}
-        drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
-        lastPoint = newPoint //importent
+    var x = bbb.clientX
+    var y = bbb.clientY
+    var newPoint = {x: x,y: y}
+    if(eraserEnable && mouseDown){
+            ctx.clearRect(x-5,y-5,10,10);
+    } else {
+        if (mouseDown) {
+            drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+            lastPoint = newPoint //importent
+        }
     }
 }
+
 canvas.onmouseup = function () {
-    paintting = false
+    mouseDown = false
+}
+
+var eraserEnable = false;
+eraser.onclick = function () {
+    eraserEnable = true
+    action.className = 'action work'
+}
+
+brush.onclick = function () {
+    eraserEnable = false
+    action.className = 'action'
 }
 /*----------------*/
 
