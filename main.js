@@ -1,6 +1,9 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-ctx.fillStyle = 'green';
+getSize();
+window.onresize = function() {
+    getSize();
+}
 var paintting = false;
 var lastPoint = {x:undefined,y:undefined}
 
@@ -17,17 +20,25 @@ canvas.onmousemove = function (bbb) {
         var y = bbb.clientY
         var newPoint = {x: x,y: y}
         drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
-        lastPoint = newPoint
+        lastPoint = newPoint //importent
     }
 }
 canvas.onmouseup = function () {
     paintting = false
 }
+/*----------------*/
 
+
+function getSize () {
+    var pageWidth = document.documentElement.clientWidth
+    var pageHeight = document.documentElement.clientHeight
+    canvas.width = pageWidth
+    canvas.height = pageHeight
+}
 function drawLine(x1,y1,x2,y2){
     ctx.beginPath();
     ctx.strokeStyle = 'green';
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 6;
     ctx.moveTo(x1,y1);
     ctx.lineTo(x2,y2);
     ctx.closePath();
@@ -35,6 +46,7 @@ function drawLine(x1,y1,x2,y2){
 }
 function drawCircle(x,y) {
     ctx.beginPath();
-    ctx.arc(x,y,5,0,Math.PI*2,);
+    ctx.fillStyle = 'green';
+    ctx.arc(x,y,3,0,Math.PI*2,);
     ctx.fill();
 }
