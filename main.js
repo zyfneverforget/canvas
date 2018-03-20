@@ -36,6 +36,16 @@ blue.onclick = function () {
     ctx.strokeStyle = 'blue'
     ctx.fillStyle = 'blue'
 }
+clear.onclick = function() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);  //清除canvas 
+}
+
+download.onclick = function () {
+    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
+    window.location.href=image;
+}
+
+
 
 //document.body.ontouchstart 如果是 undefined 设备不支持触摸 如果是true支持触摸
 
