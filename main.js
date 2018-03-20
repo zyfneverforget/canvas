@@ -25,17 +25,38 @@ brush.onclick = function () {
 red.onclick = function () {
     ctx.strokeStyle = 'red'
     ctx.fillStyle = 'red'
+    red.classList.add('active')
+    green.classList.remove('active')
+    black.classList.remove('active')
+    blue.classList.remove('active')
 }
 
 green.onclick = function () {
     ctx.strokeStyle = 'green'
     ctx.fillStyle = 'green'
+    green.classList.add('active')
+    red.classList.remove('active')
+    black.classList.remove('active')
+    blue.classList.remove('active')
 }
 
 blue.onclick = function () {
     ctx.strokeStyle = 'blue'
     ctx.fillStyle = 'blue'
+    blue.classList.add('active')
+    red.classList.remove('active')
+    black.classList.remove('active')
+    green.classList.remove('active')
 }
+black.onclick = function() {
+    ctx.strokeStyle = 'black'
+    ctx.fillStyle = 'black'
+    black.classList.add('active')
+    red.classList.remove('active')
+    green.classList.remove('active')
+    blue.classList.remove('active')
+}
+
 clear.onclick = function() {
     ctx.clearRect(0,0,canvas.width,canvas.height);  //清除canvas 
 }
