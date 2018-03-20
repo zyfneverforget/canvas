@@ -1,45 +1,13 @@
 var canvas = document.getElementById('canvas');
 var eraser = document.getElementById('eraser');
 var ctx = canvas.getContext('2d');
-//var action = document.getElementById('action');
-//var brush = document.getElementById('brush');
 
 getSize();
 window.onresize = function() {
     getSize();
 }
-var mouseDown = false;
-var lastPoint = {x:undefined,y:undefined}
 
-
-canvas.onmousedown = function (aaa) {
-    var x = aaa.clientX
-    var y = aaa.clientY
-    lastPoint = {x: x,y: y}
-    mouseDown = true
-    if(eraserEnable){
-        ctx.clearRect(x-5,y-5,10,10);
-    } else {
-        drawCircle(x,y)
-    } 
-}
-canvas.onmousemove = function (bbb) {
-    var x = bbb.clientX
-    var y = bbb.clientY
-    var newPoint = {x: x,y: y}
-    if(eraserEnable && mouseDown){
-            ctx.clearRect(x-5,y-5,10,10);
-    } else {
-        if (mouseDown) {
-            drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
-            lastPoint = newPoint //importent
-        }
-    }
-}
-
-canvas.onmouseup = function () {
-    mouseDown = false
-}
+listenToDevice (canvas);
 
 var eraserEnable = false;
 eraser.onclick = function () {
@@ -51,7 +19,81 @@ brush.onclick = function () {
     eraserEnable = false
     action.className = 'action'
 }
+
+//document.body.ontouchstart 如果是 undefined 设备不支持触摸 如果是true支持触摸
+
+
+
+
+
 /*----------------*/
+
+//监听函数
+function listenToDevice (canvas) {
+    var mouseDown = false;
+    var lastPoint = {x:undefined,y:undefined}
+    if (document.body.ontouchstart !== undefined) {
+        // 设备特性检测
+        canvas.ontouchstart = function (aaa) {
+            var x = aaa.touches[0].clientX
+            var y = aaa.touches[0].clientY
+            lastPoint = {x: x,y: y}
+            mouseDown = true
+            if(eraserEnable){
+                ctx.clearRect(x-5,y-5,10,10);
+            } else {
+                drawCircle(x,y)
+            } 
+        }
+        canvas.ontouchmove = function (bbb) {
+            var x = bbb.touches[0].clientX
+            var y = bbb.touches[0].clientY
+            var newPoint = {x: x,y: y}
+            if(eraserEnable && mouseDown){
+                    ctx.clearRect(x-5,y-5,10,10);
+            } else {
+                if (mouseDown) {
+                    drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+                    lastPoint = newPoint //importent
+                }
+            }
+        }
+        canvas.ontouchend = function () {
+            mouseDown = false
+        }
+    } else {
+        canvas.onmousedown = function (aaa) {
+            var x = aaa.clientX
+            var y = aaa.clientY
+            lastPoint = {x: x,y: y}
+            mouseDown = true
+            if(eraserEnable){
+                ctx.clearRect(x-5,y-5,10,10);
+            } else {
+                drawCircle(x,y)
+            } 
+        }
+        canvas.onmousemove = function (bbb) {
+            var x = bbb.clientX
+            var y = bbb.clientY
+            var newPoint = {x: x,y: y}
+            if(eraserEnable && mouseDown){
+                    ctx.clearRect(x-5,y-5,10,10);
+            } else {
+                if (mouseDown) {
+                    drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+                    lastPoint = newPoint //importent
+                }
+            }
+        }
+        
+        canvas.onmouseup = function () {
+            mouseDown = false
+        }
+    }
+
+}//function end
+/*-----------*/
 
 
 function getSize () {
