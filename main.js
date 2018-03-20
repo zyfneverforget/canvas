@@ -12,12 +12,14 @@ listenToDevice (canvas);
 var eraserEnable = false;
 eraser.onclick = function () {
     eraserEnable = true
-    action.className = 'action work'
+    eraser.classList.add('active')
+    brush.classList.remove('active')
 }
 
 brush.onclick = function () {
     eraserEnable = false
-    action.className = 'action'
+    brush.classList.add('active')
+    eraser.classList.remove('active')
 }
 
 //document.body.ontouchstart 如果是 undefined 设备不支持触摸 如果是true支持触摸
@@ -104,7 +106,6 @@ function getSize () {
 }
 function drawLine(x1,y1,x2,y2){
     ctx.beginPath();
-    ctx.strokeStyle = 'green';
     ctx.lineWidth = 6;
     ctx.moveTo(x1,y1);
     ctx.lineTo(x2,y2);
@@ -113,7 +114,6 @@ function drawLine(x1,y1,x2,y2){
 }
 function drawCircle(x,y) {
     ctx.beginPath();
-    ctx.fillStyle = 'green';
     ctx.arc(x,y,3,0,Math.PI*2,);
     ctx.fill();
 }

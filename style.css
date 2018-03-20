@@ -3,20 +3,23 @@
     padding: 0;
 }
 #canvas{
-    background: grey;
+    background: white;
 }
 
 #action{
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
+    padding: 20px;
 }
-.action > #brush {
-    display: none;
-}
-.action.work > #brush{
-    display: inline-block;
-}
-.action.work > #eraser {
-    display: none;
-}
+.icon {
+    width: 2.5em; height: 2.5em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
+ .action > svg.active {
+     fill: red;
+     transform: scale(1.2);
+     transition: all 0.2s;
+ }
