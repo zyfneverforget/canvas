@@ -22,6 +22,21 @@ brush.onclick = function () {
     eraser.classList.remove('active')
 }
 
+red.onclick = function () {
+    ctx.strokeStyle = 'red'
+    ctx.fillStyle = 'red'
+}
+
+green.onclick = function () {
+    ctx.strokeStyle = 'green'
+    ctx.fillStyle = 'green'
+}
+
+blue.onclick = function () {
+    ctx.strokeStyle = 'blue'
+    ctx.fillStyle = 'blue'
+}
+
 //document.body.ontouchstart 如果是 undefined 设备不支持触摸 如果是true支持触摸
 
 
@@ -68,10 +83,12 @@ function listenToDevice (canvas) {
             var x = aaa.clientX
             var y = aaa.clientY
             lastPoint = {x: x,y: y}
-            mouseDown = true
+            if (aaa.button !==2) { //判断是否按下鼠标右键
+                mouseDown = true
+            }
             if(eraserEnable){
                 ctx.clearRect(x-5,y-5,10,10);
-            } else {
+            } else if(mouseDown) {
                 drawCircle(x,y)
             } 
         }
