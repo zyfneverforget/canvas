@@ -7,6 +7,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    display: block;
 }
 
 #action{
@@ -23,7 +24,7 @@
     margin: 0 15px;
  }
  .action > svg.active {
-     fill: red;
+     /*fill: red; */
      transform: scale(1.2);
      transition: all 0.2s;
  }

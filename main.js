@@ -162,6 +162,6 @@ function drawLine(x1,y1,x2,y2){
 }
 function drawCircle(x,y) {
     ctx.beginPath();
-    ctx.arc(x,y,3,0,Math.PI*2,);
+    ctx.arc(x,y,3,0,Math.PI*2);
     ctx.fill();
 }
